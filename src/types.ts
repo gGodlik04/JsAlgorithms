@@ -33,6 +33,16 @@ export const persons: Person[] = [
 	},
 ];
 
+type ReadOnlyUtility<T extends object> = {
+	readonly [K in keyof T]: T[K];
+};
+
+type PromiseReturnTypeOwn<T extends Promise<unknown>> = T extends Promise<
+	infer K
+>
+	? K
+	: never;
+
 // predicate Tyep Guard
 
 export const isAdmin = (person: Person): person is Admin => {
