@@ -3,8 +3,13 @@ export const promiseAllOwn = <T>(promises: Promise<T>[]): Promise<T[]> => {
 		const result: T[] = [];
 		let countResolvedPromises = 0;
 
+		if (promises.length === 0) {
+			resolve([]);
+			return;
+		}
+
 		promises.forEach((promise, index) => {
-			promise.then((res) => {
+			Promise.resolve(promise).then((res) => {
 				result[index] = res;
 				countResolvedPromises++;
 
