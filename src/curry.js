@@ -10,6 +10,22 @@ const curry = (func) => {
 	return curryFunc;
 };
 
+const curry = (func) => {
+	const curryFunc = function (...args) {
+		if (func.length <= args.length) {
+			return func(...args);
+		}
+		return curryFunc.bind(this, ...args);
+	};
+
+	return curryFunc;
+};
+
+const curry = (f, ...args) =>
+	f.length <= args.length
+		? f(...args)
+		: (...next) => curry(f, ...args, ...next);
+
 const sum = (a, b, c) => a + b + c;
 const currySum = curry(sum);
 
